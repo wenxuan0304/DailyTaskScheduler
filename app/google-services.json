@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "161027997585",
+    "project_id": "testproject-c03ca",
+    "storage_bucket": "testproject-c03ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161027997585:android:1ec1f0bba9f6ee8ea9a430",
+        "android_client_info": {
+          "package_name": "com.example.dailytaskscheduler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161027997585-8uuvt12s1der5h4b4f7doak97nviqjeu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgltsC6zWdcgAWqnigPMhwenqzQ-rRvHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161027997585-8uuvt12s1der5h4b4f7doak97nviqjeu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

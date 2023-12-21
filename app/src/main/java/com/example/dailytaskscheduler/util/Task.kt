@@ -3,6 +3,8 @@ package com.example.dailytaskscheduler.util
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Entity(tableName = "task_table")
 data class Task(
@@ -17,7 +19,5 @@ data class Task(
     @ColumnInfo(name = "username")
     var username: String?,
     @ColumnInfo(name = "status")
-    var status: Boolean?,
-    @ColumnInfo(name = "role")
-    var role: String?
+    var status: Boolean?
 )

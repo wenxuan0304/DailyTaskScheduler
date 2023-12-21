@@ -35,12 +35,11 @@ class TaskAdapter(private val clickListener:(Task)->Unit):
 
         fun bind(task: Task, clickListener: (Task) -> Unit){
             binding.tvTitle.text = task.title
-            binding.tvDate.text = task.date
+            binding.tvDate.text = task.date.toString()
             binding.cardLayout.setOnClickListener{
                 clickListener(task)
             }
         }
-
     }
 
 
