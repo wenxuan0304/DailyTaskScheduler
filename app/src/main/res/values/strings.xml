@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DailyTaskScheduler</string>
+    <string name="daily_task_scheduler">Daily Task Scheduler</string>
 </resources>

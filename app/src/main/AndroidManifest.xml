@@ -13,10 +13,28 @@
         android:theme="@style/Theme.DailyTaskScheduler"
         tools:targetApi="31">
         <activity
+            android:name=".client.ClientAddTaskActivity"
+            android:exported="false" />
+        <activity
+            android:name=".client.ClientMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddTaskActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.DeleteUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.AddUserActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.MainActivity"
+            android:name=".admin.AdminMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

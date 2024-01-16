@@ -1,23 +1,14 @@
 package com.example.dailytaskscheduler.util
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import java.time.LocalDate
-import java.time.LocalDateTime
+import com.google.firebase.Timestamp
 
-@Entity(tableName = "task_table")
+
 data class Task(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int?,
-    @ColumnInfo(name = "title")
-    var title: String?,
-    @ColumnInfo(name = "content")
-    var content: String?,
-    @ColumnInfo(name = "date")
-    var date: String?,
-    @ColumnInfo(name = "username")
-    var username: String?,
-    @ColumnInfo(name = "status")
-    var status: Boolean?
+    val taskId: String = "",
+    val title: String = "",
+    val content: String = "",
+    val date: Timestamp = Timestamp.now(),
+    val userId: String = "",
+    val collaborator: MutableList<String>? = null,
+    val status: String = ""
 )

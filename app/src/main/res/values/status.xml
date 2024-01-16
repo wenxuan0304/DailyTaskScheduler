@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="task_status">
+        <item>Request</item>
+        <item>Pending</item>
+        <item>Completed</item>
+        <item>Reworked</item>
+        <item>Verified</item>
+    </string-array>
+    <string-array name="role">
+        <item>Admin</item>
+        <item>Client</item>
+    </string-array>
+    <string-array name="option">
+        <item>Date</item>
+        <item>Name</item>
+        <item>Status</item>
+        <item>Title</item>
+    </string-array>
+</resources>
