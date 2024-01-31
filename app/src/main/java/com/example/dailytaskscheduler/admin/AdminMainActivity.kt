@@ -3,25 +3,22 @@ package com.example.dailytaskscheduler.admin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
-import android.view.SearchEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SearchView
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.dailytaskscheduler.ChangePasswordActivity
 import com.example.dailytaskscheduler.MainActivity
 import com.example.dailytaskscheduler.R
 import com.example.dailytaskscheduler.databinding.ActivityMainAdminBinding
 import com.example.dailytaskscheduler.util.Task
-import com.example.dailytaskscheduler.util.User
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.toObjects
-import kotlinx.coroutines.launch
 
 class AdminMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainAdminBinding
@@ -50,14 +47,48 @@ class AdminMainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnLogout.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-            finish()
-        }
+//        binding.btnLogout.setOnClickListener {
+//            val intent = Intent(this, MainActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//            startActivity(intent)
+//            finish()
+//        }
 
         spinnerOption()
+
+        val toggle = ActionBarDrawerToggle(
+            this, binding.drawerLayout,binding.toolbarAdmin, R.string.open, R.string.close
+        )
+
+        toggle.drawerArrowDrawable.color = ContextCompat.getColor(this,R.color.white)
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.nav_profile ->
+                {
+                    val intent = Intent(this, ChangePasswordActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                }
+                R.id.nav_change_password ->
+                {
+                    val intent = Intent(this, ChangePasswordActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                }
+                R.id.nav_logout ->
+                {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    finish()
+                }
+            }
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
 
     }
 
@@ -93,7 +124,8 @@ class AdminMainActivity : AppCompatActivity() {
                                     taskList.sortByDescending { it.date }
                                 }
                                 "status" -> {
-                                    taskList.sortByDescending { it.status }
+                                    val sortByThis = listOf("Request", "Pending", "Completed", "Reworked", "Verified")
+                                    taskList.sortBy { sortByThis.indexOf(it.status) }
                                 }
                                 "name" -> {
                                     getNameById(taskList)

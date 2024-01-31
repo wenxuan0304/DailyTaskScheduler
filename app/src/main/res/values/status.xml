@@ -17,4 +17,9 @@
         <item>Status</item>
         <item>Title</item>
     </string-array>
+    <string-array name="profile">
+        <item>Profile</item>
+        <item>Change Password</item>
+        <item>Logout</item>
+    </string-array>
 </resources>
