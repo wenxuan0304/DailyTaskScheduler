@@ -98,6 +98,13 @@ class AdminDetailActivity : AppCompatActivity() {
 
         spinnerTeam()
         spinnerOption()
+
+        binding.taskProgress.setOnClickListener {
+            val intent = Intent(this@AdminDetailActivity, AdminTaskProgressActivity::class.java)
+            intent.putExtra("taskId", taskId)
+            intent.putExtra("userId", userId)
+            startActivity(intent)
+        }
     }
 
     private fun spinnerTeam() {

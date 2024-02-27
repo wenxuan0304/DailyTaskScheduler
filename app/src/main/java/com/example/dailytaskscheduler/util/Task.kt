@@ -10,5 +10,8 @@ data class Task(
     val date: Timestamp = Timestamp.now(),
     val userId: String = "",
     val collaborator: MutableList<String>? = null,
-    val status: String = ""
+    val status: String = "",
+    val fileUrls: MutableList<String>? = null,
+    val progress: Int = 0,
+    val notes: String = ""
 )

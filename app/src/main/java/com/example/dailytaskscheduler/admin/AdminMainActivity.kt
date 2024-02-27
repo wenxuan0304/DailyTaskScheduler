@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dailytaskscheduler.ChangePasswordActivity
 import com.example.dailytaskscheduler.MainActivity
+import com.example.dailytaskscheduler.ProfileActivity
 import com.example.dailytaskscheduler.R
 import com.example.dailytaskscheduler.databinding.ActivityMainAdminBinding
 import com.example.dailytaskscheduler.util.Task
@@ -68,7 +69,7 @@ class AdminMainActivity : AppCompatActivity() {
             when(menuItem.itemId){
                 R.id.nav_profile ->
                 {
-                    val intent = Intent(this, ChangePasswordActivity::class.java)
+                    val intent = Intent(this, ProfileActivity::class.java)
                     intent.putExtra("userId", userId)
                     startActivity(intent)
                 }
@@ -217,5 +218,10 @@ class AdminMainActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 }
