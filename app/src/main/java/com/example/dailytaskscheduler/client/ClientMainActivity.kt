@@ -20,6 +20,7 @@ class ClientMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainClientBinding
     private lateinit var adapter: TaskAdapter
     private lateinit var db: FirebaseFirestore
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
     private var userId: String = ""
     private var currentOption: String = ""
@@ -29,14 +30,15 @@ class ClientMainActivity : AppCompatActivity() {
         binding = ActivityMainClientBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //init database
         db = FirebaseFirestore.getInstance()
 
-        userId = intent.getStringExtra("userId").toString()
-        Log.d("userId", userId)
+        //init values
+        sharedPreferencesHelper = SharedPreferencesHelper(this)
+        userId = sharedPreferencesHelper.userId
 
         binding.btnAddTask.setOnClickListener{
-            val intent = Intent(this, ClientAddTaskActivity::class.java)
-            intent.putExtra("userId", userId)
+            val intent = Intent(this, ClientAddActivity::class.java)
             startActivity(intent)
         }
 
@@ -45,19 +47,23 @@ class ClientMainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        binding.clientRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        binding.clientRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         adapter = TaskAdapter { selectedItem: Task -> listItemClicked(selectedItem) }
         binding.clientRecyclerView.adapter = adapter
+        displayTask()
+    }
 
+    private fun displayTask() {
         db.collection("User").document(userId).get()
             .addOnSuccessListener { userResult ->
                 val username = userResult.getString("username")
                 if (username != null) {
-                    // Now, fetch tasks where the collaborator list contains the username
+                    // fetch tasks where the collaborator list contains the username
                     db.collection("Task").whereArrayContains("collaborator", username).get()
                         .addOnSuccessListener { result ->
                             val taskList = result.toObjects(Task::class.java)
                             taskList.sortByDescending { it.date }
+                            Log.d("Task", "Task List: $taskList")
                             adapter.updateList(taskList)
                         }
                         .addOnFailureListener { e ->
@@ -68,18 +74,15 @@ class ClientMainActivity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.d("User", "Error getting user: $e")
             }
-
     }
 
     private fun listItemClicked(task: Task){
-        val intent = Intent(this, AdminDetailActivity::class.java)
-        intent.putExtra("taskId",task.taskId)
-        intent.putExtra("userId", userId)
+        val intent = Intent(this, ClientUpdateActivity::class.java)
+        intent.putExtra("taskId", task.taskId)
         startActivity(intent)
     }
 
     private fun spinnerOption() {
-
         ArrayAdapter.createFromResource(
             this,
             R.array.option,

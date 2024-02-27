@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.dailytaskscheduler.admin.AdminMainActivity
 import com.example.dailytaskscheduler.client.ClientMainActivity
+import com.example.dailytaskscheduler.client.SharedPreferencesHelper
 import com.example.dailytaskscheduler.databinding.ActivityMainBinding
 import com.example.dailytaskscheduler.user.AddUserActivity
 import com.google.firebase.firestore.FirebaseFirestore
@@ -13,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: FirebaseFirestore
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private var userID = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         db = FirebaseFirestore.getInstance()
+        sharedPreferencesHelper = SharedPreferencesHelper(this)
 
         val adminIntent = Intent(this, AdminMainActivity::class.java)
         val clientIntent = Intent(this, ClientMainActivity::class.java)
@@ -59,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                                     finish()
                                 }
                                 "Client" -> {
+                                    sharedPreferencesHelper.userId = userID
                                     clientIntent.putExtra("userId", userID)
                                     startActivity(clientIntent)
                                     finish()
