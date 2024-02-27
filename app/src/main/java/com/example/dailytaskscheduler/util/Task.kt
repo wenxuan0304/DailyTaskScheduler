@@ -8,6 +8,7 @@ data class Task(
     val title: String = "",
     val content: String = "",
     val date: Timestamp = Timestamp.now(),
+    val fileList: List<Map<String, String>>? = null,
     val userId: String = "",
     val collaborator: MutableList<String>? = null,
     val status: String = "",

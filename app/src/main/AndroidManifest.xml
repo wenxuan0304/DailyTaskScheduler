@@ -26,6 +26,15 @@
             android:name=".client.ClientAddTaskActivity"
             android:exported="false" />
         <activity
+            android:name=".client.ClientHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".client.ClientUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".client.ClientAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".client.ClientMainActivity"
             android:exported="false" />
         <activity
