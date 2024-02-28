@@ -3,7 +3,6 @@ package com.example.dailytaskscheduler.admin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -17,6 +16,7 @@ import com.example.dailytaskscheduler.ChangePasswordActivity
 import com.example.dailytaskscheduler.MainActivity
 import com.example.dailytaskscheduler.ProfileActivity
 import com.example.dailytaskscheduler.R
+import com.example.dailytaskscheduler.SharedPreferencesHelper
 import com.example.dailytaskscheduler.databinding.ActivityMainAdminBinding
 import com.example.dailytaskscheduler.util.Task
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,6 +25,7 @@ class AdminMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainAdminBinding
     private lateinit var adapter: TaskAdapter
     private lateinit var db: FirebaseFirestore
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
     private var userId: String = ""
     private var currentOption: String = ""
@@ -39,21 +40,13 @@ class AdminMainActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
 
-        userId = intent.getStringExtra("userId").toString()
-        Log.d("userId", userId)
+        sharedPreferencesHelper = SharedPreferencesHelper(this)
+        userId = sharedPreferencesHelper.userId
 
         binding.btnAddTask.setOnClickListener {
             val intent = Intent(this, AddTaskActivity::class.java)
-            intent.putExtra("userId", userId)
             startActivity(intent)
         }
-
-//        binding.btnLogout.setOnClickListener {
-//            val intent = Intent(this, MainActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//            startActivity(intent)
-//            finish()
-//        }
 
         spinnerOption()
 
@@ -70,13 +63,11 @@ class AdminMainActivity : AppCompatActivity() {
                 R.id.nav_profile ->
                 {
                     val intent = Intent(this, ProfileActivity::class.java)
-                    intent.putExtra("userId", userId)
                     startActivity(intent)
                 }
                 R.id.nav_change_password ->
                 {
                     val intent = Intent(this, ChangePasswordActivity::class.java)
-                    intent.putExtra("userId", userId)
                     startActivity(intent)
                 }
                 R.id.nav_logout ->
@@ -161,8 +152,7 @@ class AdminMainActivity : AppCompatActivity() {
 
     private fun listItemClicked(task: Task) {
         val intent = Intent(this, AdminDetailActivity::class.java)
-        intent.putExtra("taskId", task.taskId)
-        intent.putExtra("userId", userId)
+        sharedPreferencesHelper.taskId = task.taskId
         startActivity(intent)
     }
 

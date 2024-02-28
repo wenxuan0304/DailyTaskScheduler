@@ -45,7 +45,7 @@
             android:inputType="text"
             android:padding="10dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:elevation="@dimen/cardview_default_elevation"
             />
 
@@ -57,7 +57,7 @@
             android:textSize="18sp"
             android:padding="10dp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"/>
 
@@ -72,7 +72,7 @@
             android:inputType="textMultiLine"
             android:padding="10dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:elevation="@dimen/cardview_default_elevation"/>
 
         <TextView
@@ -83,7 +83,7 @@
             android:textSize="18sp"
             android:padding="10dp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"/>
 
@@ -95,7 +95,7 @@
             android:textSize="18sp"
             android:padding="10dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="10dp"/>
 
         <TextView
             android:id="@+id/tvStatus"
@@ -105,7 +105,7 @@
             android:textSize="18sp"
             android:padding="10dp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"/>
 
@@ -114,7 +114,7 @@
             android:padding="10dp"
             android:ems="10"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -126,7 +126,7 @@
             android:textSize="18sp"
             android:padding="10dp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"/>
 
@@ -174,8 +174,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center_vertical"/>
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical" />
 
         <LinearLayout
             android:layout_width="match_parent"

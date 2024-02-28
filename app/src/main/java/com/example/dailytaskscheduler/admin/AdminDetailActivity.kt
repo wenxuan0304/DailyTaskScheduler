@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dailytaskscheduler.R
+import com.example.dailytaskscheduler.SharedPreferencesHelper
 import com.example.dailytaskscheduler.databinding.ActivityAdminDetailBinding
 import com.example.dailytaskscheduler.databinding.ListItemUserBinding
 import com.example.dailytaskscheduler.util.User
@@ -28,6 +29,7 @@ class AdminDetailActivity : AppCompatActivity() {
     private lateinit var rvNames: MutableList<String>
     private lateinit var adminColAdapter: AdminColAdapter
     private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
     private var taskId: String = ""
     private var userId: String = ""
@@ -40,8 +42,9 @@ class AdminDetailActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
 
-        taskId = intent.getStringExtra("taskId").toString()
-        userId = intent.getStringExtra("userId").toString()
+        sharedPreferencesHelper = SharedPreferencesHelper(this)
+        userId = sharedPreferencesHelper.userId
+        taskId = sharedPreferencesHelper.taskId
         usernameList = mutableListOf()
         rvNames = mutableListOf()
 
@@ -101,8 +104,6 @@ class AdminDetailActivity : AppCompatActivity() {
 
         binding.taskProgress.setOnClickListener {
             val intent = Intent(this@AdminDetailActivity, AdminTaskProgressActivity::class.java)
-            intent.putExtra("taskId", taskId)
-            intent.putExtra("userId", userId)
             startActivity(intent)
         }
     }

@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.dailytaskscheduler.admin.AdminMainActivity
 import com.example.dailytaskscheduler.client.ClientMainActivity
-import com.example.dailytaskscheduler.client.SharedPreferencesHelper
+import com.example.dailytaskscheduler.SharedPreferencesHelper
 import com.example.dailytaskscheduler.databinding.ActivityMainBinding
 import com.example.dailytaskscheduler.user.AddUserActivity
 import com.google.firebase.firestore.FirebaseFirestore
@@ -51,9 +51,9 @@ class MainActivity : AppCompatActivity() {
                 .addOnSuccessListener { result ->
                     if (result.documents.isNotEmpty()) {
                         val storedPassword = result.documents[0].getString("password")
-
                         if (password == storedPassword) {
                             userID = result.documents[0].id
+                            sharedPreferencesHelper.userId = userID
                             val role = result.documents[0].getString("role")
                             when (role) {
                                 "Admin" -> {
@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
                                     finish()
                                 }
                                 "Client" -> {
-                                    sharedPreferencesHelper.userId = userID
                                     clientIntent.putExtra("userId", userID)
                                     startActivity(clientIntent)
                                     finish()

@@ -14,10 +14,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dailytaskscheduler.R
+import com.example.dailytaskscheduler.SharedPreferencesHelper
 import com.example.dailytaskscheduler.databinding.ActivityUpdateClientBinding
 import com.example.dailytaskscheduler.util.File
 import com.example.dailytaskscheduler.util.History
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Locale

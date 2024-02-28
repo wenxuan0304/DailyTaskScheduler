@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:layout_margin="10dp"
-        android:text="Submit" />
+        android:text="Login" />
 
     <Button
         android:id="@+id/btn_addUser"
@@ -46,6 +46,6 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:layout_margin="10dp"
-        android:text="Add User" />
+        android:text="Register" />
 
 </LinearLayout>

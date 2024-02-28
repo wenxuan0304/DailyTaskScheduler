@@ -9,8 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dailytaskscheduler.R
-import com.example.dailytaskscheduler.admin.AdminColAdapter
-import com.example.dailytaskscheduler.admin.AdminDetailActivity
+import com.example.dailytaskscheduler.SharedPreferencesHelper
 import com.example.dailytaskscheduler.admin.TaskAdapter
 import com.example.dailytaskscheduler.databinding.ActivityMainClientBinding
 import com.example.dailytaskscheduler.util.Task

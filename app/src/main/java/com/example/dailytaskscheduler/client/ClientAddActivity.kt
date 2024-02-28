@@ -1,27 +1,21 @@
 package com.example.dailytaskscheduler.client
 
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
-import android.text.InputType
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.dailytaskscheduler.SharedPreferencesHelper
 import com.example.dailytaskscheduler.databinding.ActivityAddClientBinding
 import com.example.dailytaskscheduler.util.File
 import com.example.dailytaskscheduler.util.Task
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.util.Calendar
-import java.util.Locale
+import com.google.firebase.storage.FirebaseStorage
 import java.util.UUID
 
 class ClientAddActivity : AppCompatActivity() {
@@ -36,6 +30,7 @@ class ClientAddActivity : AppCompatActivity() {
     private var fileName: String = ""
     private var curFile: Uri? = null
     private var fileList = mutableListOf<File>()
+    private val storage = FirebaseStorage.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -229,6 +224,38 @@ class ClientAddActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+        }
+    }
+
+    private fun uploadFileToStorage(uri: Uri) {
+        val fileName = getFileName(uri)
+        val storageRef = storage.reference.child("files/$taskId/$fileName")
+
+        val uploadTask = storageRef.putFile(uri)
+        uploadTask.addOnSuccessListener { taskSnapshot ->
+            // File uploaded successfully, get download URL
+            storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
+                val fileUrl = downloadUri.toString()
+                // Store file metadata (name and URL) in Firestore
+                // You can also add other metadata like file size, type, etc.
+                val fileMetadata = mapOf(
+                    "taskId" to taskId,
+                    "fileName" to fileName,
+                    "fileUrl" to fileUrl
+                )
+                db.collection("Files").add(fileMetadata)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d("tag", "File metadata added with ID: ${documentReference.id}")
+                        // Optionally, update UI to indicate successful upload
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("tag", "Error adding file metadata", e)
+                        // Handle failure (display error message, retry, etc.)
+                    }
+            }
+        }.addOnFailureListener { exception ->
+            // Handle unsuccessful upload (display error message, retry, etc.)
+            Log.e("tag", "Error uploading file", exception)
         }
     }
 

@@ -19,5 +19,26 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
     android:src="@drawable/baseline_picture_as_pdf_24"/>
+
+    <ImageView
+        android:id="@+id/zipFile"
+        android:layout_margin="5dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/baseline_folder_zip_24"/>
+
+    <ImageView
+        android:id="@+id/file"
+        android:layout_margin="5dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/baseline_insert_drive_file_24"/>
+
+    <ImageView
+        android:id="@+id/mp4file"
+        android:layout_margin="5dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/baseline_video_file_24"/>
 </LinearLayout>
 

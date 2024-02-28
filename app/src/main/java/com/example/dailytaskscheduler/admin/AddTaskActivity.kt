@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.dailytaskscheduler.SharedPreferencesHelper
 import com.example.dailytaskscheduler.databinding.ActivityAddTaskBinding
 import com.example.dailytaskscheduler.user.UserAdapter
 import com.example.dailytaskscheduler.util.Task
@@ -35,15 +36,15 @@ class AddTaskActivity : AppCompatActivity() {
     private lateinit var adminColAdapter: AdminColAdapter
     private lateinit var taskId: String
     private lateinit var timestamp: Timestamp
-
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userId = intent.getStringExtra("userId").toString()
-        Log.d("admin", userId)
+        sharedPreferencesHelper = SharedPreferencesHelper(this)
+        userId = sharedPreferencesHelper.userId
 
         usernameList = mutableListOf()
         rvNames = mutableListOf()
@@ -66,7 +67,6 @@ class AddTaskActivity : AppCompatActivity() {
         }
         binding.btCancel.setOnClickListener {
             val intent = Intent(this@AddTaskActivity, AdminMainActivity::class.java)
-            intent.putExtra("userId", userId)
             startActivity(intent)
             finish()
         }
@@ -205,9 +205,7 @@ class AddTaskActivity : AppCompatActivity() {
                                     }
 
 
-                                val intent =
-                                    Intent(this@AddTaskActivity, AdminMainActivity::class.java)
-                                intent.putExtra("userId", userId)
+                                val intent = Intent(this@AddTaskActivity, AdminMainActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
