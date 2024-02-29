@@ -23,9 +23,6 @@
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".client.ClientAddTaskActivity"
-            android:exported="false" />
-        <activity
             android:name=".client.ClientHistoryActivity"
             android:exported="false" />
         <activity

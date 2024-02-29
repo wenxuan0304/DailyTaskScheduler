@@ -23,33 +23,38 @@ class ChangePasswordActivity : AppCompatActivity() {
         userId = intent.getStringExtra("userId").toString()
         Log.d("userId", userId)
 
-        binding.btnChange.setOnClickListener {
-            db.collection("User").document(userId).get().addOnSuccessListener { result ->
-                if (binding.etCurrent.text != null) {
-                    val password = result.getString("password")
-                    if (binding.etCurrent.text.toString() == password) {
-                        if (binding.etNew.text.isNotEmpty() && binding.etConfirm.text.isNotEmpty()) {
-                            if (binding.etNew.text.toString() == binding.etConfirm.text.toString()) {
-                                db.collection("User").document(userId).update(
-                                    "password", binding.etConfirm.text.toString()
-                                )
-                                showToast("Password changed")
-                                val intent = Intent(this, MainActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                showToast("Password not match")
-                            }
+        binding.changeBtn.setOnClickListener {
+            changePassword()
+        }
+    }
+
+    private fun changePassword() {
+        db.collection("User").document(userId).get().addOnSuccessListener { result ->
+            if (binding.etCurrent.text != null) {
+                val password = result.getString("password")
+                if (binding.etCurrent.text.toString() == password) {
+                    Log.d("Password", "${binding.etCurrent.text} and $password")
+                    if (binding.etNew.text.isNotEmpty() && binding.etConfirm.text.isNotEmpty()) {
+                        if (binding.etNew.text.toString() == binding.etConfirm.text.toString()) {
+                            db.collection("User").document(userId).update(
+                                "password", binding.etConfirm.text.toString()
+                            )
+                            showToast("Password changed")
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
+                            finish()
                         } else {
-                            showToast("Password should not be empty")
+                            showToast("Password not match")
                         }
                     } else {
-                        showToast("Current Password incorrect")
+                        showToast("Password should not be empty")
                     }
                 } else {
-                    showToast("Password should not be empty")
+                    showToast("Current Password incorrect")
                 }
+            } else {
+                showToast("Password should not be empty")
             }
         }
     }
